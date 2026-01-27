@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <title>PWA Arah Kiblat</title>
+</head>
+
+<body>
+    <header>
+        <h1> Aplikasi Arah Kiblat</h1>
+        <p> Menentukan arah Kiblat dan jadwal Sholat</p>
+    </header>
+
+    <main>
+        <section id="kiblat" class="page active">
+            <h2> Arah Kiblat </h2>
+            <div class="compas-container">
+                <div class="compas">
+                    <div class="needle"></div>
+                </div>
+            </div>
+            <button id="btnlokasi"> 📍 Ambil Lokasi </button>
+            <p id="hasil">📌 Klik tombol untuk mendeteksi lokasi Anda</p>
+
+            <!-- Jadwal Sholat di Dashboard -->
+            <div id="jadwal-dashboard" class="jadwal-dashboard" style="margin-top: 24px; display: none;">
+                <h3 style="color: #667eea; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                    <i class="bi bi-clock-history"></i>
+                    Jadwal Sholat Hari Ini
+                </h3>
+                <div style="display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap;">
+                    <p id="kotaJadwal-dashboard" style="font-size: 13px; color: #999; margin: 0; display: flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-geo-alt-fill" style="color: #667eea;"></i>
+                        <span>Kota: -</span>
+                    </p>
+                    <p id="tanggal-dashboard" style="font-size: 13px; color: #999; margin: 0; display: flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-calendar2-event" style="color: #667eea;"></i>
+                        <span>Tanggal: -</span>
+                    </p>
+                </div>
+                <ul class="jadwal-list-dashboard">
+                    <li class="jadwal-item">
+                        <span class="jadwal-nama">
+                            <i class="bi bi-sunrise jadwal-icon"></i>
+                            <span>Subuh</span>
+                        </span>
+                        <span class="jadwal-waktu" id="subuh-dashboard">-</span>
+                    </li>
+                    <li class="jadwal-item">
+                        <span class="jadwal-nama">
+                            <i class="bi bi-sun jadwal-icon"></i>
+                            <span>Dzuhur</span>
+                        </span>
+                        <span class="jadwal-waktu" id="dzuhur-dashboard">-</span>
+                    </li>
+                    <li class="jadwal-item">
+                        <span class="jadwal-nama">
+                            <i class="bi bi-cloud-sun jadwal-icon"></i>
+                            <span>Ashar</span>
+                        </span>
+                        <span class="jadwal-waktu" id="ashar-dashboard">-</span>
+                    </li>
+                    <li class="jadwal-item">
+                        <span class="jadwal-nama">
+                            <i class="bi bi-sunset jadwal-icon"></i>
+                            <span>Maghrib</span>
+                        </span>
+                        <span class="jadwal-waktu" id="maghrib-dashboard">-</span>
+                    </li>
+                    <li class="jadwal-item">
+                        <span class="jadwal-nama">
+                            <i class="bi bi-moon-stars jadwal-icon"></i>
+                            <span>Isya</span>
+                        </span>
+                        <span class="jadwal-waktu" id="isya-dashboard">-</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="jadwal" class="page">
+            <h2> Jadwal Sholat</h2>
+            <div style="display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap;">
+                <p id="kotaJadwal" style="font-size: 14px; color: #999; margin: 0; display: flex; align-items: center; gap: 6px;">
+                    <i class="bi bi-geo-alt-fill" style="color: #667eea;"></i>
+                    <span>kota : -</span>
+                </p>
+                <p id="tanggal" style="font-size: 14px; color: #999; margin: 0; display: flex; align-items: center; gap: 6px;">
+                    <i class="bi bi-calendar2-event" style="color: #667eea;"></i>
+                    <span>tanggal : -</span>
+                </p>
+            </div>
+            <ul class="jadwal-list">
+                <li>
+                    <span class="jadwal-nama">
+                        <i class="bi bi-sunrise jadwal-icon"></i>
+                        <span>Subuh</span>
+                    </span>
+                    <span id="subuh">-</span>
+                </li>
+                <li>
+                    <span class="jadwal-nama">
+                        <i class="bi bi-sun jadwal-icon"></i>
+                        <span>Dzuhur</span>
+                    </span>
+                    <span id="dzuhur">-</span>
+                </li>
+                <li>
+                    <span class="jadwal-nama">
+                        <i class="bi bi-cloud-sun jadwal-icon"></i>
+                        <span>Ashar</span>
+                    </span>
+                    <span id="ashar">-</span>
+                </li>
+                <li>
+                    <span class="jadwal-nama">
+                        <i class="bi bi-sunset jadwal-icon"></i>
+                        <span>Maghrib</span>
+                    </span>
+                    <span id="maghrib">-</span>
+                </li>
+                <li>
+                    <span class="jadwal-nama">
+                        <i class="bi bi-moon-stars jadwal-icon"></i>
+                        <span>Isya</span>
+                    </span>
+                    <span id="isya">-</span>
+                </li>
+            </ul>
+
+        </section>
+
+        <section id="lokasi" class="page">
+            <h2> Lokasi Anda </h2>
+            <p> Informasi lokasi akan ditampilkan di sini</p>
+        </section>
+
+        <section id="tentang" class="page">
+            <h2> Tentang Aplikasi </h2>
+            <p> Aplikasi ini membantu menentukan arah Kiblat dan jadwal Sholat berdasarkan lokasi Anda.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Arah Kiblat. All rights reserved.</p>
+    </footer>
+
+    <nav class="bottom-nav">
+        <button onclick="showPage('kiblat')" class="active">
+            <i class="bi bi-compass"></i>
+            <span>Kiblat</span>
+        </button>
+        <button onclick="showPage('jadwal')">
+            <i class="bi bi-clock"></i>
+            <span>Jadwal</span>
+        </button>
+        <button onclick="showPage('lokasi')">
+            <i class="bi bi-geo-alt"></i>
+            <span>Lokasi</span>
+        </button>
+        <button onclick="showPage('tentang')">
+            <i class="bi bi-info-circle"></i>
+            <span>Tentang</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
