@@ -31,7 +31,7 @@ function ambilLokasi() {
 
     const btnLokasi = document.getElementById('btnlokasi');
     const hasilElement = document.getElementById('hasil');
-    
+
     // Show loading state
     btnLokasi.disabled = true;
     btnLokasi.style.opacity = '0.6';
@@ -92,7 +92,7 @@ function hitungArahKiblat(lat1, lon1, lat2, lon2) {
 
     const y = Math.sin(dLon) * Math.cos(toRadians(lat2));
     const x = Math.cos(toRadians(lat1)) * Math.sin(toRadians(lat2)) -
-              Math.sin(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.cos(dLon);
+        Math.sin(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.cos(dLon);
 
     const brng = Math.atan2(y, x);
     return (toDegrees(brng) + 360) % 360;
@@ -102,7 +102,7 @@ function posisiGagal() {
     const btnLokasi = document.getElementById('btnlokasi');
     btnLokasi.disabled = false;
     btnLokasi.style.opacity = '1';
-    
+
     document.getElementById('hasil').innerHTML = '❌ Gagal mendeteksi lokasi. Pastikan Anda memberikan izin akses lokasi.';
     alert('Gagal mendapatkan lokasi. Pastikan izin lokasi diberikan.');
 }
@@ -112,7 +112,7 @@ function ambilJadwalSholat(kota) {
     const Url = `https://api.pray.zone/v2/times/today.json?city=${kotaEncoded}`;
 
     console.log('Mengambil jadwal sholat untuk kota:', kota);
-    
+
     // Update loading state
     document.getElementById('kotaJadwal').innerText = '⏳ Memuat jadwal...';
     document.getElementById('tanggal').innerText = '⏳ Memuat...';
@@ -131,7 +131,7 @@ function ambilJadwalSholat(kota) {
         })
         .then(data => {
             console.log('Response dari API:', data);
-            
+
             if (data.code === 200 && data.data) {
                 try {
                     const jadwal = data.data.timings;
@@ -151,19 +151,7 @@ function ambilJadwalSholat(kota) {
                     document.getElementById('ashar').innerText = formatWaktu(jadwal.Asr);
                     document.getElementById('maghrib').innerText = formatWaktu(jadwal.Maghrib);
                     document.getElementById('isya').innerText = formatWaktu(jadwal.Isha);
-                    
-                    // Update display (halaman dashboard)
-                    document.getElementById('kotaJadwal-dashboard').innerText = `📍 Kota: ${kota}`;
-                    document.getElementById('tanggal-dashboard').innerText = `📅 Tanggal: ${tanggal}`;
-                    document.getElementById('subuh-dashboard').innerText = formatWaktu(jadwal.Fajr);
-                    document.getElementById('dzuhur-dashboard').innerText = formatWaktu(jadwal.Dhuhr);
-                    document.getElementById('ashar-dashboard').innerText = formatWaktu(jadwal.Asr);
-                    document.getElementById('maghrib-dashboard').innerText = formatWaktu(jadwal.Maghrib);
-                    document.getElementById('isya-dashboard').innerText = formatWaktu(jadwal.Isha);
-                    
-                    // Tampilkan jadwal dashboard
-                    document.getElementById('jadwal-dashboard').style.display = 'block';
-                    
+
                     console.log('✓ Jadwal sholat berhasil dimuat');
                 } catch (e) {
                     console.error('Error parsing jadwal:', e);
@@ -187,25 +175,16 @@ function tampilkanErrorJadwal(kota, pesan) {
     document.getElementById('ashar').innerText = '-';
     document.getElementById('maghrib').innerText = '-';
     document.getElementById('isya').innerText = '-';
-    
-    // Tampilkan error di dashboard juga
-    document.getElementById('kotaJadwal-dashboard').innerText = `📍 Kota: ${kota}`;
-    document.getElementById('tanggal-dashboard').innerText = `⚠️ Error: ${pesan}`;
-    document.getElementById('subuh-dashboard').innerText = '-';
-    document.getElementById('dzuhur-dashboard').innerText = '-';
-    document.getElementById('ashar-dashboard').innerText = '-';
-    document.getElementById('maghrib-dashboard').innerText = '-';
-    document.getElementById('isya-dashboard').innerText = '-';
-    
+
     // Tampilkan jadwal dashboard
-    document.getElementById('jadwal-dashboard').style.display = 'block';
+    // document.getElementById('jadwal-dashboard').style.display = 'block';
 }
 
 function tampilkanKota(latitude, longitude) {
     const Url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1`;
 
     console.log('Mencari nama kota dari koordinat:', latitude, longitude);
-    
+
     fetch(Url)
         .then(response => {
             if (!response.ok) {
@@ -215,15 +194,15 @@ function tampilkanKota(latitude, longitude) {
         })
         .then(data => {
             console.log('Response Nominatim:', data);
-            
+
             // Priority: city > town > village > county > region
-            const kota = data.address?.city 
-                || data.address?.town 
-                || data.address?.village 
-                || data.address?.county 
-                || data.address?.region 
+            const kota = data.address?.city
+                || data.address?.town
+                || data.address?.village
+                || data.address?.county
+                || data.address?.region
                 || 'Unknown';
-            
+
             console.log('✓ Kota ditemukan:', kota);
             ambilJadwalSholat(kota);
         })

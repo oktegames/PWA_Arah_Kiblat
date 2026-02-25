@@ -1,0 +1,25 @@
+{
+    "name": "Arah Kiblat",
+    "short_name": "Kiblat",
+    "description" : "Belajar PWA",
+    "start_url": "index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "potarait_primary",
+    "baggound_color": "#dff7d0",
+    "theme_color": "#22c55e",
+    "icons" : [
+        {
+            "src": "icons/icon-192.png",
+            "size" : "192x192",
+            "type" : "image/png"
+        },
+
+        {
+            "src": "icons/icon-512.png",
+            "size" : "512x512",
+            "type" : "image/png"
+        }
+    ]
+}
+
